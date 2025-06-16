@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+// Cek apakah array sudah urut menaik
+bool CekUrutNaik(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        if (arr[i-1] > arr[i]) {
+            return false; // Tidak urut jika elemen sebelumnya lebih besar
+        }
+    }
+    return true; // Urut jika semua elemen sesuai urutan menaik
+}
+
+// Rotasi kanan satu kali: elemen terakhir pindah ke depan
+void rotasiKanan(int arr[], int n) {
+    int terakhir = arr[n-1];
+    for (int i = n-1; i > 0; i--) {
+        arr[i] = arr[i-1];
+    }
+    arr[0] = terakhir;
+}
+
+// Tampilkan isi array saat ini
+void tampilkanArray(int arr[], int n) {
+    cout << "Isi array saat ini: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    system("cls"); // Bersihkan layar (opsional)
+    int n;
+    cout << "Masukan Jumlah Array: ";
+    cin >> n;
+
+    int arr[100];
+    cout << "Masukkan elemen array (pisahkan dengan spasi): ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    bool terurutNaik = false;
+    // Coba rotasi kanan dari 0 sampai n-1 kali
+    for (int jumlahRotasi = 0; jumlahRotasi < n; jumlahRotasi++) {
+        tampilkanArray(arr, n); // Lihat kondisi array saat ini
+
+        if (CekUrutNaik(arr, n)) {
+            cout << "Array sudah terurut menaik setelah " << jumlahRotasi << " kali rotasi kanan." << endl;
+            terurutNaik = true;
+            break;
+        }
+
+        rotasiKanan(arr, n); // Lakukan rotasi kanan
+    }
+
+    if (!terurutNaik) {
+        cout << "Tidak, berapapun operasi yang dilakukan array tidak akan terurut menaik." << endl;
+    }
+
+    return 0;
+}
